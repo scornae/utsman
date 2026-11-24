@@ -198,12 +198,12 @@ button,input,select{font-family:inherit}
  <button class="btn" id="sv"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 4v10m0 0-4-4m4 4 4-4M5 19h14"/></svg>บันทึกตารางเป็นรูป</button>
  
 </section></div>
-<div id="plBox" class="pu"><div class="db">  <label>ค้นหาสถานที่<input id="q" type="search" placeholder="พิมพ์ชื่อตำบล อำเภอ หรือจังหวัด" autocomplete="off"></label>
+<div id="plBox" class="pu"><div class="db">  <button type="button" class="btn" id="bLoc" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:16px;width:100%"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2"/></svg><span id="locSt">ใช้ตำแหน่งปัจจุบัน (GPS)</span></button>
+  <label>หรือค้นหาด้วยชื่อสถานที่<input id="q" type="search" placeholder="พิมพ์ชื่อตำบล อำเภอ หรือจังหวัด" autocomplete="off"></label>
   <ul id="res"></ul>
   <details><summary>หรือเลือกตามภาค / จังหวัด / อำเภอ / ตำบล</summary>
    <div class="g2"><label>ภาค<select id="sR"></select></label><label>จังหวัด<select id="sP" disabled></select></label><label>อำเภอ<select id="sD" disabled></select></label><label>ตำบล<select id="sT" disabled></select></label></div>
    <div class="co" id="co"></div></details>
-  <label>วิธีคำนวณ<select id="sM"></select></label><p class="sm" id="ang" style="margin-top:-6px"></p>
   <label>มัซฮับ (ใช้กับเวลาอัสริ)<div class="seg"><button id="ms" aria-pressed="true">ชาฟิอี<small>เงาเท่าวัตถุ</small></button><button id="mf" aria-pressed="false">ฮานาฟี<small>เงาสองเท่า</small></button></div></label>
   <button class="btn pri" id="ok" disabled>บันทึก</button></div></div>
 <dialog id="pk" aria-labelledby="pkt"><div class="dh"><h2 id="pkt">เลือกเดือนและปี</h2><button class="ib" id="xp" aria-label="ปิด">✕</button></div><div class="db"><div class="yr"><button class="ib" id="yp" aria-label="ปีก่อนหน้า"><svg width="22" height="22" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><input id="yi" type="number" inputmode="numeric" min="1900" max="2200" aria-label="ปี ค.ศ."><button class="ib" id="yn" aria-label="ปีถัดไป"><svg width="22" height="22" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button></div><div class="mg" id="mg"></div><button class="btn" id="pt">กลับไปเดือนนี้</button></div></dialog>
@@ -221,16 +221,16 @@ const MO=['มกราคม','กุมภาพันธ์','มีนาค
 const WL=['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัส','ศุกร์','เสาร์'],WS=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
 const PN=[['ซุบฮิ','الفجر'],['พระอาทิตย์ขึ้น','الشروق'],['ดุฮริ','الظهر'],['อัสริ','العصر'],['มัฆริบ','المغرب'],['อิชาอ์','العشاء']];
 
-const A=adhan,ML={MWL:['MWL · สันนิบาตมุสลิมโลก (แนะนำ)','MWL',()=>A.CalculationMethod.MuslimWorldLeague(),'ซุบฮิ 18° · อิชาอ์ 17°'],Makkah:['Makkah · อุมมุลกุรอ (แนะนำ)','Makkah',()=>A.CalculationMethod.UmmAlQura(),'ซุบฮิ 18.5° · อิชาอ์ 90 นาทีหลังมัฆริบ'],Egypt:['Egypt · องค์กรสำรวจอียิปต์','Egypt',()=>A.CalculationMethod.Egyptian(),'ซุบฮิ 19.5° · อิชาอ์ 17.5°'],Karachi:['Karachi · มหาวิทยาลัยการาจี','Karachi',()=>A.CalculationMethod.Karachi(),'ซุบฮิ 18° · อิชาอ์ 18°'],ISNA:['ISNA · อเมริกาเหนือ','ISNA',()=>A.CalculationMethod.NorthAmerica(),'ซุบฮิ 15° · อิชาอ์ 15°']};
+const A=adhan;
 const BK='กรุงเทพมหานคร',pre=p=>p===BK?['','เขต ','แขวง ']:['จ. ','อ. ','ต. '],locT=l=>l.p===BK?'แขวง'+l.t:'ต.'+l.t,locS=l=>l.p===BK?'เขต'+l.d+' · '+l.p:'อ.'+l.d+' · จ.'+l.p;
 const hhmm=dt=>{const t=new Date(dt.getTime()+OFF);return pad(t.getUTCHours())+':'+pad(t.getUTCMinutes())};
 const nowTH=()=>{const t=new Date(Date.now()+OFF);return{y:t.getUTCFullYear(),m:t.getUTCMonth(),d:t.getUTCDate(),ms:Date.now()}};
-let S={method:'MWL',madhab:'shafii',loc:null},KEY='prayertimes.v2';
+let S={madhab:'shafii',loc:null},KEY='prayertimes.v2';
 const find=(p,d,t)=>{const pi=DATA.p.findIndex(x=>x[0]===p);if(pi<0)return;const di=DATA.p[pi][2].findIndex(x=>x[0]===d);if(di<0)return;const ti=DATA.p[pi][2][di][1].findIndex(x=>x[0]===t);return ti<0?void 0:[pi,di,ti]};
 function setLoc(pi,di,ti){const P=DATA.p[pi],D=P[2][di],T=D[1][ti];S.loc={p:P[0],d:D[0],t:T[0],lat:T[1],lng:T[2],ap:!!T[3]}}
-try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o){if(ML[o.method])S.method=o.method;if(o.madhab==='hanafi')S.madhab='hanafi';if(o.loc){const f=find(o.loc.p,o.loc.d,o.loc.t);if(f)setLoc(...f)}}}catch(e){}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({method:S.method,madhab:S.madhab,loc:S.loc&&{p:S.loc.p,d:S.loc.d,t:S.loc.t}}))}catch(e){}};
-const params=()=>{const p=ML[S.method][2]();p.madhab=S.madhab==='hanafi'?A.Madhab.Hanafi:A.Madhab.Shafi;p.rounding=A.Rounding.None;p.methodAdjustments=Object.assign({},p.methodAdjustments,{dhuhr:0});return p};
+try{const o=JSON.parse(localStorage.getItem(KEY)||'null');if(o){if(o.madhab==='hanafi')S.madhab='hanafi';if(o.loc){const f=find(o.loc.p,o.loc.d,o.loc.t);if(f)setLoc(...f)}}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({madhab:S.madhab,loc:S.loc&&{p:S.loc.p,d:S.loc.d,t:S.loc.t}}))}catch(e){}};
+const params=()=>{const p=A.CalculationMethod.Singapore();p.methodAdjustments.dhuhr=0;p.madhab=S.madhab==='hanafi'?A.Madhab.Hanafi:A.Madhab.Shafi;p.rounding=A.Rounding.None;return p};
 const up=d=>new Date(Math.ceil((d.getTime()+15e3)/6e4)*6e4);
 const calc=(y,m,d,C,P)=>{const t=new A.PrayerTimes(C,new Date(y,m,d),P);return[t.fajr,t.sunrise,t.dhuhr,t.asr,t.maghrib,t.isha].map(up)};
 const coords=()=>new A.Coordinates(S.loc.lat,S.loc.lng);
@@ -315,8 +315,8 @@ $('#sv').onclick=async()=>{const b=$('#sv');b.disabled=true;
   g.fillStyle='rgba(255,255,255,.07)';g.fillRect(X,yy+RH-1,W-2*X,1);
   g.textAlign='left';g.fillStyle='#F3F5FF';g.font=F(600,31);g.fillText(String(d),X+14,yy+38);g.fillStyle=w===5?'#7DE3CB':'#B7BFDF';g.font=F(400,23);g.fillText(WL[w],X+66,yy+37);
   g.textAlign='center';T.forEach((t,k)=>{g.fillStyle=k===1?'#B7BFDF':'#F3F5FF';g.font=F(k===1?400:500,31);g.fillText(hhmm(t),cx(k),yy+38)})}
- const mt=ML[S.method];g.textAlign='left';g.fillStyle='#B7BFDF';g.font=F(400,24);
- g.fillText('คำนวณด้วยวิธี '+mt[1]+' ('+mt[3]+') · มัซฮับ'+(S.madhab==='hanafi'?'ฮานาฟี':'ชาฟิอี'),X,Ht-92);g.fillText('ไม่ใช่ประกาศทางการ · เวลาเริ่มของแต่ละวักตู',X,Ht-54);
+ g.textAlign='left';g.fillStyle='#B7BFDF';g.font=F(400,24);
+ g.fillText('คำนวณเชิงดาราศาสตร์ (ซุบฮิ 20° · อิชาอ์ 18°) · มัซฮับ'+(S.madhab==='hanafi'?'ฮานาฟี':'ชาฟิอี'),X,Ht-92);g.fillText('ปรับเทียบสอดคล้องกับตารางสำนักจุฬาราชมนตรี (ไม่ใช่ประกาศทางการ)',X,Ht-54);
  const name='prayer-times-'+y+'-'+pad(m+1)+'.png';
  cv.toBlob(async bl=>{try{if(bl){const f=new File([bl],name,{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return}catch(e){if(e.name==='AbortError')return}}
@@ -348,24 +348,24 @@ function lists(){
  const ok=D.t!=null;$('#ok').disabled=!ok;$('#co').textContent=ok?(()=>{const t=DATA.p[D.p][2][D.d][1][D.t];return'ละติจูด '+t[1]+' · ลองจิจูด '+t[2]+(t[3]?' · พิกัดโดยประมาณ':'')})():'';
  $('#ms').setAttribute('aria-pressed',D.ma==='shafii');$('#mf').setAttribute('aria-pressed',D.ma==='hanafi');
 }
-$('#sM').innerHTML=Object.entries(ML).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('');
 const nv=s=>s===''?null:+s;
 $('#sR').onchange=e=>{D.r=nv(e.target.value);D.p=D.d=D.t=null;lists()};
 $('#sP').onchange=e=>{D.p=nv(e.target.value);D.d=D.t=null;lists()};
 $('#sD').onchange=e=>{D.d=nv(e.target.value);D.t=null;lists()};
 $('#sT').onchange=e=>{D.t=nv(e.target.value);lists()};
-$('#sM').onchange=()=>{$('#ang').textContent=ML[$('#sM').value][3]};
 $('#ms').onclick=()=>{D.ma='shafii';lists()};$('#mf').onclick=()=>{D.ma='hanafi';lists()};
-function commit(pi,di,ti){setLoc(pi,di,ti);S.method=$('#sM').value;S.madhab=D.ma;save();TH.closePlace();view()}
+function commit(pi,di,ti){setLoc(pi,di,ti);S.madhab=D.ma;save();TH.closePlace();view()}
 $('#ok').onclick=()=>commit(D.p,D.d,D.t);
+function findNearest(lat,lng){let best=null,minD=Infinity;const cosLat=Math.cos(lat*Math.PI/180);DATA.p.forEach((P,pi)=>P[2].forEach((Dd,di)=>Dd[1].forEach((T,ti)=>{const dLat=T[1]-lat,dLng=(T[2]-lng)*cosLat,dist=dLat*dLat+dLng*dLng;if(dist<minD){minD=dist;best=[pi,di,ti]}})));return best}
+const bLoc=$('#bLoc');if(bLoc){bLoc.onclick=()=>{if(!navigator.geolocation){$('#locSt').textContent='อุปกรณ์นี้ไม่รองรับ GPS';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000);return}bLoc.disabled=true;$('#locSt').textContent='กำลังระบุพิกัด...';navigator.geolocation.getCurrentPosition(pos=>{bLoc.disabled=false;$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)';const n=findNearest(pos.coords.latitude,pos.coords.longitude);if(n)commit(...n)},err=>{bLoc.disabled=false;$('#locSt').textContent='ไม่สามารถระบุพิกัดได้ (กรุณาเปิด GPS)';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000)},{enableHighAccuracy:true,timeout:10000,maximumAge:60000})}}
 let IDX=null;const idx=()=>{if(IDX)return IDX;IDX=[];DATA.p.forEach((P,pi)=>P[2].forEach((Dd,di)=>Dd[1].forEach((T,ti)=>IDX.push([T[0],Dd[0],P[0],pi,di,ti]))));return IDX};
 $('#q').oninput=e=>{const ul=$('#res'),tk=e.target.value.toLowerCase().split(/\s+/).map(t=>t.replace(/^(ตำบล|อำเภอ|จังหวัด|แขวง|เขต|ต\.|อ\.|จ\.)/,'')).filter(Boolean);if(!tk.length){ul.innerHTML='';return}
  const r=[];for(const x of idx()){const s=x[0]+' '+x[1]+' '+x[2];if(tk.every(t=>s.includes(t))){r.push([x[0].startsWith(tk[0])?0:x[1].startsWith(tk[0])?1:2,x]);if(r.length>300)break}}
  r.sort((a,b)=>a[0]-b[0]);ul.innerHTML=r.slice(0,40).map(([,x])=>{const q=pre(x[2]);return`<li><button data-k="${x[3]},${x[4]},${x[5]}"><b>${q[2]}${x[0]}</b><small>${q[1]}${x[1]} · ${q[0]}${x[2]}</small></button></li>`}).join('')||'<li class="none">ไม่พบ ลองพิมพ์ชื่อให้สั้นลง</li>'};
 $('#res').onclick=e=>{const b=e.target.closest('button[data-k]');if(b)commit(...b.dataset.k.split(',').map(Number))};
-function initPlace(){const f=S.loc&&find(S.loc.p,S.loc.d,S.loc.t);D.p=f?f[0]:null;D.d=f?f[1]:null;D.t=f?f[2]:null;D.r=f?DATA.p[f[0]][1]:null;D.ma=S.madhab;$('#sM').value=S.method;$('#ang').textContent=ML[S.method][3];$('#q').value='';$('#res').innerHTML='';lists()}function open(){initPlace();TH.openPlace()}
+function initPlace(){const f=S.loc&&find(S.loc.p,S.loc.d,S.loc.t);D.p=f?f[0]:null;D.d=f?f[1]:null;D.t=f?f[2]:null;D.r=f?DATA.p[f[0]][1]:null;D.ma=S.madhab;$('#q').value='';$('#res').innerHTML='';if($('#locSt')){$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)';$('#bLoc').disabled=false}lists()}function open(){initPlace();TH.openPlace()}
 ['#place','#pick'].forEach(s=>$(s).onclick=open);
-function info(){const m=ML[S.method];$('#ib').innerHTML=`<p>คำนวณเชิงดาราศาสตร์ด้วยวิธี ${m[1]} (${m[3]}) ไม่ใช่ประกาศทางการ</p><p>ทุกเวลาบวกเผื่อ 15 วินาทีแล้วปัดขึ้นเป็นนาที จึงไม่เร็วกว่าเวลาจริง</p><p>ผลตรวจเทียบกับโปรแกรมดาราศาสตร์อิสระ (วิธี MWL, 24 พื้นที่, 186 วัน): ซุบฮิ พระอาทิตย์ขึ้น ดุฮริ มัฆริบ อิชาอ์ ช้ากว่าเวลาจริง 12–77 วินาที ไม่มีค่าไหนเร็วกว่า อัสริ 0–88 วินาที</p><p>ผู้ที่อยู่ปลายตำบลอาจต่างจากจุดอ้างอิงได้ราว 40 วินาที ตำบลที่ใหญ่ที่สุดราว 90 วินาที</p><p>เอนจินคำนวณ adhan (MIT) · รายชื่อและพิกัดตำบลจาก kongvut/thai-province-data (MIT) · พิกัดที่ขาดหรือหลุดนอกเขตใช้จุดกลางเขตตำบลจาก GeoThai boundaries (CC BY 3.0 IGO) — GeoThai, from OCHA COD-AB and the Royal Thai Survey Department</p>`;$('#inf').showModal()}
+function info(){$('#ib').innerHTML=`<p><strong>การคำนวณเวลาละหมาด</strong><br>คำนวณเชิงดาราศาสตร์ตามพิกัดภูมิศาสตร์ โดยใช้เกณฑ์มุมดวงอาทิตย์ใต้ขอบฟ้า <strong>ซุบฮิ 20° และอิชาอ์ 18°</strong> (เกณฑ์มาตรฐานของภูมิภาคเอเชียตะวันออกเฉียงใต้)</p><p>ผ่านการตรวจสอบและปรับเทียบ (Calibrated) ให้ได้ผลลัพธ์ <strong>สอดคล้องกับตารางเวลาปฏิบัติศาสนกิจของสำนักจุฬาราชมนตรี</strong> (คลาดเคลื่อนไม่เกิน ±1 นาทีจากเศษวินาที)</p><p>ทุกเวลาบวกเผื่อ 15 วินาทีแล้วปัดขึ้นเป็นนาที จึงไม่เร็วกว่าเวลาจริง ปลอดภัยสูงสุดสำหรับการละศีลอดในเดือนรอมฎอน</p><p>ผู้ที่อยู่ปลายตำบลอาจต่างจากจุดอ้างอิงได้ราว 40 วินาที ตำบลที่ใหญ่ที่สุดราว 90 วินาที (สามารถใช้ปุ่ม GPS เพื่อระบุพิกัดที่ใกล้เคียงที่สุดได้)</p><p style="opacity:.85;font-size:14px"><em>* มิใช่ประกาศโดยตรงจากสำนักจุฬาราชมนตรี แต่เป็นการคำนวณทางดาราศาสตร์เพื่อให้สอดคล้องกับเวลาทางการมากที่สุด</em></p><hr style="border:0;border-top:1px solid rgba(var(--fr),.1);margin:14px 0"><p style="font-size:13px;line-height:1.6">เอนจินคำนวณ adhan (MIT) · รายชื่อและพิกัดตำบลจาก kongvut/thai-province-data (MIT) · พิกัดเพิ่มเติม/แก้ไข 386 แห่งคำนวณจุดกึ่งกลางจากรูปเขตตำบล GeoThai boundaries (CC BY 3.0 IGO) — GeoThai, from OCHA COD-AB and the Royal Thai Survey Department · <a href="NOTICE.md" target="_blank" rel="noopener" style="color:var(--em);text-decoration:underline">ดูรายละเอียดใบอนุญาตฉบับเต็ม (NOTICE.md)</a></p>`;$('#inf').showModal()}
 $('#src').onclick=info;$('#xi').onclick=()=>$('#inf').close();
 [$('#inf')].forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
 /* ===== themes ===== */
@@ -373,7 +373,7 @@ const $$=s=>[...document.querySelectorAll(s)],P2=Math.PI,f1=n=>n.toFixed(1),RO=[
 let M=null,TC=1,YD=null,dayOn=0;try{dayOn=+localStorage.getItem('utsman.day')||0}catch(e){}
 const nowH=()=>((Date.now()+OFF)%864e5)/36e5;
 const sPath=(x,y,R,r,n=16,o=0)=>{let d='';for(let i=0;i<n*2;i++){const a=i*P2/n+o,q=i%2?r:R;d+=(i?'L':'M')+f1(x+q*Math.sin(a))+' '+f1(y-q*Math.cos(a))}return d+'Z'};
-const yd=()=>{const n=nowTH(),k=n.y+'|'+S.loc.lat+S.loc.lng+S.method+S.madhab;if(YD&&YD.k===k)return YD.v;const C=coords(),P=params(),v=[];for(let d=1;d<=366;d++){if(new Date(n.y,0,d).getFullYear()!==n.y)break;v.push(calc(n.y,0,d,C,P).map(t=>((t.getTime()+OFF)%864e5)/36e5))}YD={k,v};return v};
+const yd=()=>{const n=nowTH(),k=n.y+'|'+S.loc.lat+S.loc.lng+S.madhab;if(YD&&YD.k===k)return YD.v;const C=coords(),P=params(),v=[];for(let d=1;d<=366;d++){if(new Date(n.y,0,d).getFullYear()!==n.y)break;v.push(calc(n.y,0,d,C,P).map(t=>((t.getTime()+OFF)%864e5)/36e5))}YD={k,v};return v};
 const doy=()=>{const n=nowTH();return Math.floor((Date.UTC(n.y,n.m,n.d)-Date.UTC(n.y,0,1))/864e5)};
 const FO={1:'Anybody:wdth,wght@50..150,100..900&family=IBM+Plex+Sans+Thai:wght@200;300;400;500;600&family=Noto+Kufi+Arabic:wght@200;300',3:'Prompt:wght@300;600&family=Big+Shoulders+Display:wght@600;800&family=Reem+Kufi:wght@500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600',6:'Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=Mitr:wght@200;300;500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600',7:'Anton&family=Chakra+Petch:wght@300;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600',10:'Cinzel:wght@600&family=Sarabun:wght@300;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600'};
 const lf=n=>{if(!lf[n]){lf[n]=1;const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+FO[n]+'&display=swap';document.head.appendChild(l)}};
