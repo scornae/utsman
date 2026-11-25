@@ -8,12 +8,12 @@ This project (Utsman) incorporates open-source software and open-data datasets. 
 
 - **Source:** https://github.com/batoulapps/adhan-js
 - **License:** MIT License
-- **Copyright:** (c) Batoul Apps
+- **Copyright:** (c) 2016 Batoul Apps
 
 ```text
-MIT License
+The MIT License (MIT)
 
-Copyright (c) Batoul Apps
+Copyright (c) 2016 Batoul Apps
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -40,13 +40,13 @@ SOFTWARE.
 
 - **Source:** https://github.com/kongvut/thai-province-data
 - **License:** MIT License
-- **Copyright:** (c) 2021-2025 Kongvut Sangkla
+- **Copyright:** (c) 2025 Kongvut Sangkla
 - **Usage:** รายชื่อภูมิภาค จังหวัด อำเภอ ตำบล และพิกัดภูมิศาสตร์ตำบล 7,123 แห่งในประเทศไทย
 
 ```text
 MIT License
 
-Copyright (c) 2021-2025 Kongvut Sangkla
+Copyright (c) 2025 Kongvut Sangkla
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -76,8 +76,11 @@ SOFTWARE.
   > **GeoThai, from OCHA COD-AB and the Royal Thai Survey Department**
 - **Licenses:**
   - **Boundary polygon shapes:** [Creative Commons Attribution 3.0 Intergovernmental Organizations (CC BY 3.0 IGO)](https://creativecommons.org/licenses/by/3.0/igo/)
-    - Source: OCHA COD-AB dataset for Thailand (drawn by Royal Thai Survey Department / กรมแผนที่ทหาร, acquired by ICRC, published by OCHA FIS).
+    - Source: OCHA COD-AB dataset for Thailand, <https://data.humdata.org/dataset/cod-ab-tha> (drawn by Royal Thai Survey Department / กรมแผนที่ทหาร, acquired by ICRC, made available by OCHA Field Information Services Section).
+    - Changes already made by GeoThai (per its NOTICE): renamed the p-codes to DOPA codes, linked 3 old-code shapes to their current subdistricts, simplified the lines to 5% of the points, and dissolved the district and province shapes out of the subdistrict layer.
   - **Codes and Names:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
     - Source: GeoThai/data
 - **Notice of Modification (ข้อความแจ้งการดัดแปลง):**
   - พิกัดตำบลจำนวน 386 แห่งในโปรเจกต์นี้ (ได้แก่ แขวงในกรุงเทพมหานครทั้งหมด และตำบลที่มีการปรับปรุงพิกัด) ได้รับการคำนวณหาจุดกึ่งกลาง (Centroid) ขึ้นมาจากรูปทรงหลายเหลี่ยมเขตตำบล (Boundary Polygons) ของ GeoThai boundaries มิได้ใช้รูปทรงเขตแนวพรมแดนโดยตรง
+
+- **No endorsement:** This project is independent. It is not endorsed by, and does not imply any endorsement from, GeoThai, OCHA, ICRC, the Royal Thai Survey Department, or the Central Islamic Committee of Thailand (สำนักจุฬาราชมนตรี).

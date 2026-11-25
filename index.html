@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0e1b2a">
 <title>Utsman</title>
+<meta name="description" content="บอกเวลาละหมาดทั่วประเทศไทยทุกตำบล คำนวณในเครื่อง ใช้ได้ทั้งมือถือและคอม ไม่ต้องติดตั้ง">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Utsman">
+<meta property="og:title" content="Utsman · เวลาละหมาดทั่วไทย ทุกตำบล">
+<meta property="og:description" content="บอกเวลาละหมาดทั่วประเทศไทยทุกตำบล คำนวณในเครื่อง ใช้ได้ทั้งมือถือและคอม ไม่ต้องติดตั้ง">
+<meta property="og:url" content="https://scornae.github.io/utsman/">
+<meta property="og:image" content="https://scornae.github.io/utsman/og-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="th_TH">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
@@ -55,8 +66,8 @@ details[open] summary{margin-bottom:8px}.g2{display:grid;gap:12px}@media(min-wid
 #vToday{touch-action:pan-y}
 @keyframes inl{from{opacity:0;transform:translateX(26px)}}@keyframes inr{from{opacity:0;transform:translateX(-26px)}}
 .an1{animation:inl .22s ease-out}.an2{animation:inr .22s ease-out}
-.mst .mlb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font-family:inherit;font-size:19px;font-weight:600}
-.btn svg{stroke:currentColor}#sv{width:100%;margin-top:14px}
+.mst .mlb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font-family:inherit;font-size:19px;font-weight:600;white-space:nowrap;min-width:0}
+.btn svg{stroke:currentColor}
 .yr{display:grid;grid-template-columns:48px 1fr 48px;gap:10px;align-items:center}.yr .ib svg{stroke:currentColor}
 .yr input{font:inherit;font-size:22px;font-weight:600;text-align:center;color:var(--fg);background:rgba(var(--fr),.07);border:1px solid rgba(var(--fr),.18);border-radius:16px;min-height:50px;width:100%}
 .mg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -83,8 +94,8 @@ button,input,select{font-family:inherit}
 #app{position:relative;z-index:1}
 .empty{margin:22vh auto 0;max-width:32ch;text-align:center;padding:0 20px}
 .empty h2{font-size:28px;font-weight:300;margin:0 0 8px}.empty p{opacity:.7;margin:0 0 24px}
-.dn2{display:flex;align-items:center;gap:6px;font-size:14px}.dc2{display:flex;align-items:center;gap:8px}.date{margin:0}
-.dn2 .ib{width:36px;height:36px;font-size:20px;line-height:1;background:none;border:1px solid rgba(var(--fr),.25)}
+.dn2{display:flex;align-items:center;gap:6px;font-size:14px}.dc2{position:relative;display:flex;align-items:center;justify-content:center;width:clamp(150px,calc(100vw - 150px),250px);min-height:48px;text-align:center}.dc2 .chip{position:absolute;top:calc(100% - 8px);left:50%;transform:translateX(-50%);white-space:nowrap}.date{margin:0}
+.dn2 .ib{font-size:22px;line-height:1;background:none;border:1px solid rgba(var(--fr),.25)}
 .big em{font-style:normal}
 .list{list-style:none;margin:0;padding:0}.row time{font-variant-numeric:tabular-nums lining-nums}
 .sx{position:relative;padding:12vh var(--p) 4vh}.sx h2{font:200 clamp(34px,6vw,90px)/1.05 var(--t);margin:0 0 4vh}
@@ -122,7 +133,8 @@ button,input,select{font-family:inherit}
 .t6.dop #hd{color:#fff;mix-blend-mode:difference}.t6 .brand{font-weight:800;font-variation-settings:'wdth' 75}
 .t6 #vToday{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:70px 64px 50px}
 .t6 .hn{font:500 clamp(22px,3vw,42px)}.t6 .hn .ar{margin-left:12px;font-size:.6em;font-weight:200}
-.t6 .big{font:800 min(27vw,46vh)/.82 var(--d);font-variation-settings:'wdth' 75;letter-spacing:-.05em}
+.t6 .big{font:700 min(21vw,46vh)/.9 var(--d);font-variation-settings:'wdth' 75;letter-spacing:.03em}.t6 .big em{margin:0 .02em}.t6 .dc2{width:clamp(150px,calc(100vw - 214px),250px)}.t6 .big{pointer-events:none}.t6 .dc2 .chip{top:auto;bottom:calc(100% - 6px)}@media(min-width:701px){.t6 .big{font-size:min(27vw,46vh)}}
+.t6 #hd{padding-left:max(var(--p),52px);padding-right:max(var(--p),52px)}
 .t6 .list{display:flex;flex-wrap:wrap;justify-content:center;gap:10px clamp(16px,3.2vw,52px);margin-top:5vh}
 .t6 .row b{display:block;font-weight:200;font-size:14px}.t6 .row .ar{display:none}
 .t6 .row time{display:block;font:600 clamp(20px,2.4vw,32px)/1.1 var(--d);font-variation-settings:'wdth' 75}
@@ -131,7 +143,7 @@ button,input,select{font-family:inherit}
 .t6 #dL{left:0;transform:translateX(calc(-100% + 42px))}.t6 #dR{right:0;transform:translateX(calc(100% - 42px))}.t6 #dL.o,.t6 #dR.o{transform:none}
 .t6 .dh6{width:42px;flex:none;border:0;cursor:pointer;background:#15123a var(--pt);color:#b6b4ff;font:500 16px var(--t);writing-mode:vertical-rl;display:grid;place-items:center}
 .t6 .dh6 span{background:#15123a;padding:16px 5px}.t6 .dh6:focus-visible{outline:3px solid #fff;outline-offset:-3px}
-.t6 .dk{background:#15123a;overflow:auto;flex:1;padding:72px 24px 28px}
+.t6 .dr{background:#15123a}.t6 .dk{background:#15123a;overflow:auto;flex:1;margin-top:calc(max(14px,env(safe-area-inset-top)) + 58px);padding:10px 24px 28px}
 .t7{--bg:#cdf03c;--fg:#0b0c08;--fr:11,12,8;--em:#0b0c08;--er:11,12,8;--pn:#cdf03c;--hc:#0b0c08;--kb:#0b0c08;--kf:#cdf03c;--kr:205,240,60;--d:'Anton','Impact',sans-serif;--t:'Chakra Petch','IBM Plex Sans Thai',sans-serif}
 .t7 #hd{right:auto;width:62%}.t7 .brand{font:400 28px var(--d);letter-spacing:.02em}.t7.po #hd{display:none}
 .t7 #app{width:62%}.t7 #deco{width:38%;left:auto;background:#0b0c08;position:fixed;top:0;right:0;bottom:0}.t7 #deco svg{width:100%;height:100%}
@@ -162,7 +174,7 @@ button,input,select{font-family:inherit}
 .yb{display:grid;grid-template-columns:3.4em 1fr;gap:12px;align-items:center;margin:9px 0;font-size:14px}
 .yb div{height:clamp(14px,2vw,22px);border:1px solid rgba(var(--fr),.5);position:relative}.yb i{position:absolute;top:0;bottom:0;background:var(--fg)}
 #gfx{margin-bottom:4vh}
-@media(max-width:700px){.t3 .list{grid-template-columns:repeat(3,1fr)}.t6 #vToday{padding:70px 52px 50px}.t7 #app{width:64%}.t7 #deco{width:36%}.t7 .list{grid-template-columns:repeat(2,1fr)}.t7 #pal.o{grid-template-columns:1fr;grid-template-rows:auto 1fr}.t7 #ppl{border:0;border-bottom:2px solid #cdf03c;max-height:50svh}.place span{max-width:34vw}}
+@media(max-width:700px){.t3 .list{grid-template-columns:repeat(3,1fr)}.t6 #vToday{padding:70px 48px 50px}.t7 #app{width:64%}.t7 #deco{width:36%}.t7 .list{grid-template-columns:repeat(2,1fr)}.t7 #pal.o{grid-template-columns:1fr;grid-template-rows:auto 1fr}.t7 #ppl{border:0;border-bottom:2px solid #cdf03c;max-height:50svh}.place span{max-width:34vw}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .t6 #sc,.t7 #sc,.t10 #sc{display:none}
 .hr2{display:flex;align-items:center;gap:6px;flex:none}
@@ -170,6 +182,30 @@ button,input,select{font-family:inherit}
 .t1 #dn1{display:grid}#dn1 i{width:18px;height:18px;border-radius:50%;border:1.5px solid currentColor;background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
 .t1.dy{--bg:#dfe8e4;--fg:#0e1b2a;--fr:14,27,42;--em:#d9552b;--er:217,85,43;--pn:#cfdcd6;--hc:#0e1b2a}
 
+.tcw{container-type:inline-size}
+@container (max-width:560px){
+.tc{border:0;border-radius:0;background:none;overflow:visible}
+table,tbody{display:block}colgroup,thead{display:none}
+tbody{display:grid;gap:8px}
+tr{display:grid;grid-template-columns:58px repeat(3,minmax(0,1fr));align-items:center;gap:8px 6px;padding:12px 14px 12px 12px;border:1px solid rgba(var(--fr),.18);border-radius:18px;background:rgba(var(--fr),.06)}
+tr.f td,tr.t td{background:none}
+tr.f{background:rgba(var(--er),.1)}
+tr.t{background:rgba(var(--er),.2);border-color:var(--em);box-shadow:inset 4px 0 0 var(--em)}
+tr.t td.dc{box-shadow:none}
+td{display:block;height:auto;border:0;font-size:19px;line-height:1.25;font-weight:500}
+tr.t td{font-weight:600}td.sr{font-weight:400}
+td.dc{grid-row:1/3;grid-column:1}
+td.dc>div{display:block;padding:0;text-align:center}
+td.dc .dn{display:block;font-size:26px;line-height:1.1;min-width:0}tr.f .dn{color:var(--em)}
+.dx{display:block;font-size:13px}.dx .l{display:none}.dx .s{display:inline}
+td:not(.dc)::before{display:block;font-size:11.5px;font-weight:400;line-height:1.3;color:rgba(var(--fr),.72)}
+td:nth-child(2)::before{content:'ซุบฮิ'}td:nth-child(3)::before{content:'ชูรูก'}td:nth-child(4)::before{content:'ดุฮริ'}td:nth-child(5)::before{content:'อัสริ'}td:nth-child(6)::before{content:'มัฆริบ'}td:nth-child(7)::before{content:'อิชาอ์'}
+}
+@container (max-width:300px){
+tr{grid-template-columns:44px repeat(3,minmax(0,1fr));gap:6px 2px;padding:10px 8px;border-radius:16px}
+td{font-size:16.5px}td.dc .dn{font-size:22px}.dx{font-size:12px}td:not(.dc)::before{font-size:10.5px}
+}
+@media(max-width:700px){#gfx{display:none}#tsw button{width:24px}.mst .mlb{font-size:17px}}
 </style>
 </head>
 <body class="t1">
@@ -193,9 +229,9 @@ button,input,select{font-family:inherit}
 <div id="un" class="dk"><div class="tb10"><button id="tbc" aria-pressed="true">ปฏิทิน</button><button id="tbp" aria-pressed="false">สถานที่</button></div><div id="uc"></div><div id="upl" hidden></div></div>
 <div id="calBox"><div id="gfx"></div><section id="vTable">
  <div class="tools"><div class="mst"><button id="mp" aria-label="เดือนก่อนหน้า"><svg width="22" height="22" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><button class="mlb" id="mB" aria-label="เลือกเดือนและปี"><span id="mL"></span><svg width="16" height="16" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><button id="mn" aria-label="เดือนถัดไป"><svg width="22" height="22" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button></div></div>
- <div class="tc"><table><colgroup><col class="c0"><col><col><col><col><col><col></colgroup>
- <thead><tr><th style="text-align:left;padding-left:14px">วันที่</th><th>ซุบฮิ</th><th>ชูรูก</th><th>ดุฮริ</th><th>อัสริ</th><th>มัฆริบ</th><th>อิชาอ์</th></tr></thead><tbody id="tb"></tbody></table></div>
- <button class="btn" id="sv"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 4v10m0 0-4-4m4 4 4-4M5 19h14"/></svg>บันทึกตารางเป็นรูป</button>
+ <div class="tcw"><div class="tc"><table><colgroup><col class="c0"><col><col><col><col><col><col></colgroup>
+ <thead><tr><th style="text-align:left;padding-left:14px">วันที่</th><th>ซุบฮิ</th><th>ชูรูก</th><th>ดุฮริ</th><th>อัสริ</th><th>มัฆริบ</th><th>อิชาอ์</th></tr></thead><tbody id="tb"></tbody></table></div></div>
+ 
  
 </section></div>
 <div id="plBox" class="pu"><div class="db">  <button type="button" class="btn" id="bLoc" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:16px;width:100%"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2"/></svg><span id="locSt">ใช้ตำแหน่งปัจจุบัน (GPS)</span></button>
@@ -287,7 +323,7 @@ function table(scroll){
  const C=coords(),P=params(),n=nowTH(),{y,m}=TM,dn=new Date(Date.UTC(y,m+1,0)).getUTCDate();let h='';
  for(let d=1;d<=dn;d++){const w=new Date(Date.UTC(y,m,d)).getUTCDay(),T=calc(y,m,d,C,P),t=y===n.y&&m===n.m&&d===n.d;
   h+=`<tr class="${w===5?'f':''}${t?' t':''}"${t?' id="trow"':''}><td class="dc"><div><b class="dn">${d}</b><span class="dx"><i class="s">${WS[w]}</i><i class="l">${WL[w]}</i></span></div></td>${T.map((x,k)=>`<td${k===1?' class="sr"':''}>${hhmm(x)}</td>`).join('')}</tr>`}
- $('#tb').innerHTML=h;$('#mL').textContent=MO[m]+' '+y;gfx();
+ $('#tb').innerHTML=h;$('#mL').textContent=MO[m]+' '+y;gfx();requestAnimationFrame(jt);
  
 }
 const mv=k=>{TM.m+=k;if(TM.m<0){TM.m=11;TM.y--}if(TM.m>11){TM.m=0;TM.y++}table()};
@@ -299,35 +335,13 @@ $('#yp').onclick=()=>{PY--;pkR()};$('#yn').onclick=()=>{PY++;pkR()};
 $('#yi').onchange=e=>{const v=+e.target.value;if(v>=1900&&v<=2200)PY=v;pkR()};
 $('#mg').onclick=e=>{const b=e.target.closest('button[data-m]');if(b){TM={y:PY,m:+b.dataset.m};pk.close();table()}};
 $('#pt').onclick=()=>{const n=nowTH();TM={y:n.y,m:n.m};pk.close();table(true)};
-$('#sv').onclick=async()=>{const b=$('#sv');b.disabled=true;
- try{await Promise.all(['500','600'].map(w=>document.fonts.load(w+' 30px "IBM Plex Sans Thai"')))}catch(e){}
- const{y,m}=TM,C=coords(),P=params(),dn=new Date(Date.UTC(y,m+1,0)).getUTCDate(),W=1080,RH=56,X=60,top=250,Ht=top+RH*(dn+1)+190,cv=document.createElement('canvas');cv.width=W;cv.height=Ht;
- const g=cv.getContext('2d'),F=(w,z)=>w+' '+z+'px "IBM Plex Sans Thai","Noto Sans Thai",sans-serif';
- g.fillStyle='#070a1f';g.fillRect(0,0,W,Ht);
- [[0,0,820,'99,102,241,.34'],[W,300,700,'129,90,200,.26'],[W/2,Ht,760,'99,102,241,.2']].forEach(([x,yy,r,c])=>{const k=g.createRadialGradient(x,yy,0,x,yy,r);k.addColorStop(0,'rgba('+c+')');k.addColorStop(1,'rgba('+c.replace(/[\d.]+$/,'0')+')');g.fillStyle=k;g.fillRect(0,0,W,Ht)});
- g.textBaseline='alphabetic';g.fillStyle='#F3F5FF';g.font=F(600,62);g.fillText(MO[m]+' '+y,X,118);
- g.fillStyle='#B7BFDF';g.font=F(400,30);g.fillText(locT(S.loc)+' · '+locS(S.loc),X,170);
- const cw=(W-2*X-190)/6,cx=k=>k<0?X:X+190+cw*(k+.5);
- g.fillStyle='#7DE3CB';g.font=F(600,27);g.textAlign='left';g.fillText('วันที่',X+14,top+36);g.textAlign='center';['ซุบฮิ','ชูรูก','ดุฮริ','อัสริ','มัฆริบ','อิชาอ์'].forEach((t,k)=>g.fillText(t,cx(k),top+36));
- g.fillStyle='rgba(255,255,255,.22)';g.fillRect(X,top+RH-4,W-2*X,2);
- for(let d=1;d<=dn;d++){const w=new Date(Date.UTC(y,m,d)).getUTCDay(),T=calc(y,m,d,C,P),yy=top+RH*d;
-  if(w===5){g.fillStyle='rgba(125,227,203,.1)';g.fillRect(X,yy,W-2*X,RH)}
-  g.fillStyle='rgba(255,255,255,.07)';g.fillRect(X,yy+RH-1,W-2*X,1);
-  g.textAlign='left';g.fillStyle='#F3F5FF';g.font=F(600,31);g.fillText(String(d),X+14,yy+38);g.fillStyle=w===5?'#7DE3CB':'#B7BFDF';g.font=F(400,23);g.fillText(WL[w],X+66,yy+37);
-  g.textAlign='center';T.forEach((t,k)=>{g.fillStyle=k===1?'#B7BFDF':'#F3F5FF';g.font=F(k===1?400:500,31);g.fillText(hhmm(t),cx(k),yy+38)})}
- g.textAlign='left';g.fillStyle='#B7BFDF';g.font=F(400,24);
- g.fillText('คำนวณเชิงดาราศาสตร์ (ซุบฮิ 20° · อิชาอ์ 18°) · มัซฮับ'+(S.madhab==='hanafi'?'ฮานาฟี':'ชาฟิอี'),X,Ht-92);g.fillText('ปรับเทียบสอดคล้องกับตารางสำนักจุฬาราชมนตรี (ไม่ใช่ประกาศทางการ)',X,Ht-54);
- const name='prayer-times-'+y+'-'+pad(m+1)+'.png';
- cv.toBlob(async bl=>{try{if(bl){const f=new File([bl],name,{type:'image/png'});
-  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return}catch(e){if(e.name==='AbortError')return}}
-  const u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4e3)}}finally{b.disabled=false}},'image/png')};
 
 /* view */
 function view(){
  const L=S.loc;$('#empty').hidden=!!L;$('#vToday').hidden=!L;$('#calBox').hidden=!L;
  if(!L){$('#pT').firstChild.textContent='เลือกสถานที่';$('#apx').hidden=true;M=null;TH.draw();return}
  $('#pT').firstChild.textContent=locT(L)+' ';$('#apx').textContent=locS(L)+(L.ap?' · พิกัดโดยประมาณ':'');$('#apx').hidden=false;
- H=null;today();table()
+ H=null;{const w=dayOn;pickDay();if(TC===1&&w!==dayOn)showDay()}today();table()
 }
 
 
@@ -365,12 +379,15 @@ $('#q').oninput=e=>{const ul=$('#res'),tk=e.target.value.toLowerCase().split(/\s
 $('#res').onclick=e=>{const b=e.target.closest('button[data-k]');if(b)commit(...b.dataset.k.split(',').map(Number))};
 function initPlace(){const f=S.loc&&find(S.loc.p,S.loc.d,S.loc.t);D.p=f?f[0]:null;D.d=f?f[1]:null;D.t=f?f[2]:null;D.r=f?DATA.p[f[0]][1]:null;D.ma=S.madhab;$('#q').value='';$('#res').innerHTML='';if($('#locSt')){$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)';$('#bLoc').disabled=false}lists()}function open(){initPlace();TH.openPlace()}
 ['#place','#pick'].forEach(s=>$(s).onclick=open);
-function info(){$('#ib').innerHTML=`<p><strong>การคำนวณเวลาละหมาด</strong><br>คำนวณเชิงดาราศาสตร์ตามพิกัดภูมิศาสตร์ โดยใช้เกณฑ์มุมดวงอาทิตย์ใต้ขอบฟ้า <strong>ซุบฮิ 20° และอิชาอ์ 18°</strong> (เกณฑ์มาตรฐานของภูมิภาคเอเชียตะวันออกเฉียงใต้)</p><p>ผ่านการตรวจสอบและปรับเทียบ (Calibrated) ให้ได้ผลลัพธ์ <strong>สอดคล้องกับตารางเวลาปฏิบัติศาสนกิจของสำนักจุฬาราชมนตรี</strong> (คลาดเคลื่อนไม่เกิน ±1 นาทีจากเศษวินาที)</p><p>ทุกเวลาบวกเผื่อ 15 วินาทีแล้วปัดขึ้นเป็นนาที จึงไม่เร็วกว่าเวลาจริง ปลอดภัยสูงสุดสำหรับการละศีลอดในเดือนรอมฎอน</p><p>ผู้ที่อยู่ปลายตำบลอาจต่างจากจุดอ้างอิงได้ราว 40 วินาที ตำบลที่ใหญ่ที่สุดราว 90 วินาที (สามารถใช้ปุ่ม GPS เพื่อระบุพิกัดที่ใกล้เคียงที่สุดได้)</p><p style="opacity:.85;font-size:14px"><em>* มิใช่ประกาศโดยตรงจากสำนักจุฬาราชมนตรี แต่เป็นการคำนวณทางดาราศาสตร์เพื่อให้สอดคล้องกับเวลาทางการมากที่สุด</em></p><hr style="border:0;border-top:1px solid rgba(var(--fr),.1);margin:14px 0"><p style="font-size:13px;line-height:1.6">เอนจินคำนวณ adhan (MIT) · รายชื่อและพิกัดตำบลจาก kongvut/thai-province-data (MIT) · พิกัดเพิ่มเติม/แก้ไข 386 แห่งคำนวณจุดกึ่งกลางจากรูปเขตตำบล GeoThai boundaries (CC BY 3.0 IGO) — GeoThai, from OCHA COD-AB and the Royal Thai Survey Department · <a href="NOTICE.md" target="_blank" rel="noopener" style="color:var(--em);text-decoration:underline">ดูรายละเอียดใบอนุญาตฉบับเต็ม (NOTICE.md)</a></p>`;$('#inf').showModal()}
+function info(){$('#ib').innerHTML=`<p><strong>การคำนวณเวลาละหมาด</strong><br>คำนวณเชิงดาราศาสตร์ตามพิกัดภูมิศาสตร์ โดยใช้เกณฑ์มุมดวงอาทิตย์ใต้ขอบฟ้า <strong>ซุบฮิ 20° และอิชาอ์ 18°</strong> (เกณฑ์มาตรฐานของภูมิภาคเอเชียตะวันออกเฉียงใต้)</p><p>ปรับเทียบกับ <strong>ตารางเวลาปฏิบัติศาสนกิจของสำนักจุฬาราชมนตรี 3 จังหวัดตลอดทั้งปี</strong> ได้ผลลัพธ์สอดคล้องกับตารางเหล่านั้น (คลาดเคลื่อนไม่เกิน ±1 นาทีจากเศษวินาที)</p><p>ทุกเวลาบวกเผื่อ 15 วินาทีแล้วปัดขึ้นเป็นนาที จึงไม่เร็วกว่าเวลาจริง ปลอดภัยสูงสุดสำหรับการละศีลอดในเดือนรอมฎอน</p><p>ผู้ที่อยู่ปลายตำบลอาจต่างจากจุดอ้างอิงได้ราว 40 วินาที ตำบลที่ใหญ่ที่สุดราว 90 วินาที (สามารถใช้ปุ่ม GPS เพื่อระบุพิกัดที่ใกล้เคียงที่สุดได้)</p><p style="opacity:.85;font-size:14px"><em>* มิใช่ประกาศโดยตรงจากสำนักจุฬาราชมนตรี แต่เป็นการคำนวณทางดาราศาสตร์เพื่อให้สอดคล้องกับเวลาทางการมากที่สุด</em></p><hr style="border:0;border-top:1px solid rgba(var(--fr),.1);margin:14px 0"><p style="font-size:13px;line-height:1.6">เอนจินคำนวณ adhan (MIT) · รายชื่อและพิกัดตำบลจาก kongvut/thai-province-data (MIT) · พิกัดเพิ่มเติม/แก้ไข 386 แห่งคำนวณจุดกึ่งกลางจากรูปเขตตำบล GeoThai boundaries (CC BY 3.0 IGO) — GeoThai, from OCHA COD-AB and the Royal Thai Survey Department · <a href="https://github.com/scornae/utsman/blob/main/NOTICE.md" target="_blank" rel="noopener" style="color:var(--em);text-decoration:underline">ดูรายละเอียดใบอนุญาตฉบับเต็ม (NOTICE.md)</a></p>`;$('#inf').showModal()}
 $('#src').onclick=info;$('#xi').onclick=()=>$('#inf').close();
 [$('#inf')].forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
 /* ===== themes ===== */
 const $$=s=>[...document.querySelectorAll(s)],P2=Math.PI,f1=n=>n.toFixed(1),RO=[6,8,10,12,16,20],NS='http://www.w3.org/2000/svg';
-let M=null,TC=1,YD=null,dayOn=0;try{dayOn=+localStorage.getItem('utsman.day')||0}catch(e){}
+let M=null,TC=1,YD=null,dayOn=0;try{localStorage.removeItem('utsman.day')}catch(e){}
+const dayAuto=()=>{const n=nowTH();let u,d;if(S.loc){const T=calc(n.y,n.m,n.d,coords(),params());u=T[1].getTime();d=T[4].getTime()}else{const z=Date.UTC(n.y,n.m,n.d)-OFF;u=z+6*36e5;d=z+18*36e5}const day=n.ms>=u&&n.ms<d,Y=n.ms<u?dayOf(-1):dayOf(0);return{day,k:Y.y+'-'+Y.m+'-'+Y.d+(day?'d':'n')}};
+const pickDay=()=>{const a=dayAuto();let v=a.day?1:0;try{const o=JSON.parse(localStorage.getItem('utsman.day2')||'null');if(o&&o.k===a.k)v=o.v?1:0}catch(e){}dayOn=v};
+const showDay=()=>{const on=TC===1&&!!dayOn;document.body.classList.toggle('dy',on);tcol();$('#dn1').setAttribute('aria-pressed',on);L1.fr=getComputedStyle(document.body).getPropertyValue('--fr').trim();gfx()};
 const nowH=()=>((Date.now()+OFF)%864e5)/36e5;
 const sPath=(x,y,R,r,n=16,o=0)=>{let d='';for(let i=0;i<n*2;i++){const a=i*P2/n+o,q=i%2?r:R;d+=(i?'L':'M')+f1(x+q*Math.sin(a))+' '+f1(y-q*Math.cos(a))}return d+'Z'};
 const yd=()=>{const n=nowTH(),k=n.y+'|'+S.loc.lat+S.loc.lng+S.madhab;if(YD&&YD.k===k)return YD.v;const C=coords(),P=params(),v=[];for(let d=1;d<=366;d++){if(new Date(n.y,0,d).getFullYear()!==n.y)break;v.push(calc(n.y,0,d,C,P).map(t=>((t.getTime()+OFF)%864e5)/36e5))}YD={k,v};return v};
@@ -379,8 +396,8 @@ const FO={1:'Anybody:wdth,wght@50..150,100..900&family=IBM+Plex+Sans+Thai:wght@2
 const lf=n=>{if(!lf[n]){lf[n]=1;const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+FO[n]+'&display=swap';document.head.appendChild(l)}};
 const FV={1:['#0e1b2a','#d6e6e0','M16 3 19 13 29 16 19 19 16 29 13 19 3 16 13 13Z'],3:['#f2dd2c','#121212','M16 5a11 11 0 1 0 .01 0Z'],6:['#b6b4ff','#15123a','M6 6H26V26H6Z M16 2L30 16L16 30L2 16Z'],7:['#0b0c08','#cdf03c','M16 4L27 10V22L16 28L5 22V10Z'],10:['#a5a093','#2a2824','M16 4L28 16L16 28L4 16Z M7 7H25V25H7Z']};
 const fav=n=>{const[b,c,p]=FV[n],s=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='${b}'/><path d='${p}' fill='none' stroke='${c}' stroke-width='2'/></svg>`;let l=$('#fav');if(!l){l=document.createElement('link');l.id='fav';l.rel='icon';document.head.appendChild(l)}l.href='data:image/svg+xml,'+encodeURIComponent(s)};
-const TN={1:'ตาข่ายแสง',3:'หน้าปัดฟะลัก',6:'ประตูสาน',7:'บล็อกไอโซเมตริก',10:'แผ่นหินสลัก'};
-$('#tsw').innerHTML=Object.keys(TN).map(n=>`<button data-n="${n}" aria-label="ธีม ${TN[n]}" title="${TN[n]}" aria-pressed="false"></button>`).join('');
+const TNS=[1,3,6,7,10];
+$('#tsw').innerHTML=TNS.map((n,i)=>`<button data-n="${n}" aria-label="ธีมที่ ${i+1}" aria-pressed="false"></button>`).join('');
 $$('#tsw button').forEach(b=>b.onclick=()=>setTheme(+b.dataset.n));
 const ptr={x:innerWidth/2,y:innerHeight/2,on:0};addEventListener('pointermove',e=>{ptr.x=e.clientX;ptr.y=e.clientY;ptr.on=1});document.addEventListener('pointerleave',()=>ptr.on=0);
 function yBars(){const v=yd(),n=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'],y=nowTH().y;let h='';for(let m=0;m<12;m++){const d=Math.floor((Date.UTC(y,m,15)-Date.UTC(y,0,1))/864e5),a=v[d][0],b=v[d][5];h+=`<div class="yb"><span>${n[m]}</span><div><i style="left:${(a-4)/17*100}%;width:${(b-a)/17*100}%"></i></div></div>`}$('#gfx').innerHTML=h}
@@ -429,17 +446,19 @@ const X={
  if(M){const fs=Math.min(W*.24,H*.34,W*.2);s+=`<text x="${pd}" y="${H*.2}" font-family="Sarabun" font-weight="500" font-size="${Math.max(30,Math.min(W*.04,64))}" fill="#fff">${PN[M.pi][0]}</text><text x="${pd-4}" y="${H*.2+fs*.95}" font-family="Cinzel" font-weight="600" font-size="${fs}" letter-spacing="-.02em" fill="#fff">${M.tm}</text>`;
  M.rows.forEach((r,i)=>{const x=pd+(W-2*pd)*(i+.5)/6;s+=`<text x="${x}" y="${H-38}" text-anchor="middle" font-family="Sarabun" font-weight="500" font-size="15" fill="#fff">${PN[i][0]}</text><text x="${x}" y="${H-12}" text-anchor="middle" font-family="Cinzel" font-weight="600" font-size="${Math.min(24,W/16)}" fill="#fff">${r}</text>`})}
  g.innerHTML=s},op(){lid10(1);tab10(0)},cl(){lid10(0)},gfx:yBars}};
-function dr6(d,o){['#dL','#dR'].forEach(s=>{const e=$(s),on=o&&e===d;e.classList.toggle('o',on);e.querySelector('.dh6').setAttribute('aria-expanded',on)});document.body.classList.toggle('dop',!!o)}
-function pal7(o){$('#pal').classList.toggle('o',!!o);document.body.classList.toggle('po',!!o);if(o){const q=$('#q');q&&q.focus({preventScroll:true})}}
-function lid10(o){document.body.classList.toggle('lo',!!o)}
-function tab10(c){$('#tbc').setAttribute('aria-pressed',!!c);$('#tbp').setAttribute('aria-pressed',!c);$('#uc').hidden=!c;$('#upl').hidden=!!c}
+function jt(){const r=$('#trow');if(!r||!r.offsetParent||getComputedStyle(r).display!=='grid')return;let c=r.parentElement;while(c&&c!==document.body){if(/auto|scroll/.test(getComputedStyle(c).overflowY)&&c.scrollHeight>c.clientHeight)break;c=c.parentElement}if(!c||c===document.body)return;c.scrollTop+=r.getBoundingClientRect().top-c.getBoundingClientRect().top-(c.clientHeight-r.offsetHeight)/2}
+function dr6(d,o){['#dL','#dR'].forEach(s=>{const e=$(s),on=o&&e===d;e.classList.toggle('o',on);e.querySelector('.dh6').setAttribute('aria-expanded',on)});document.body.classList.toggle('dop',!!o);if(o&&d===$('#dR'))jt()}
+function pal7(o){$('#pal').classList.toggle('o',!!o);document.body.classList.toggle('po',!!o);if(o){const q=$('#q');q&&q.focus({preventScroll:true});jt()}}
+function lid10(o){document.body.classList.toggle('lo',!!o);if(o)jt()}
+function tab10(c){$('#tbc').setAttribute('aria-pressed',!!c);$('#tbp').setAttribute('aria-pressed',!c);$('#uc').hidden=!c;$('#upl').hidden=!!c;if(c)jt()}
 const MP={1:['#wc','#wp'],3:['#wc','#wp'],6:['#dRc','#dLc'],7:['#pdv','#ppl'],10:['#uc','#upl']};
-const gfx=()=>{if(S.loc&&X[TC].gfx)X[TC].gfx()};
+const gfx=()=>{if(S.loc&&X[TC].gfx&&!matchMedia('(max-width:700px)').matches)X[TC].gfx()};
 const TH={draw(){X[TC].draw&&X[TC].draw()},openPlace(){X[TC].op()},closePlace(){X[TC].cl()}};
-function setTheme(n,first){if(X[TC]&&X[TC].off)X[TC].off();TC=n;document.body.className='t'+n+(n===1&&dayOn?' dy':'');lf(n);fav(n);try{localStorage.setItem('utsman.theme',n)}catch(e){}
+const tcol=()=>{const c=getComputedStyle(document.body).getPropertyValue('--bg').trim(),m=document.querySelector('meta[name=theme-color]');if(m&&c)m.content=c};
+function setTheme(n,first){if(X[TC]&&X[TC].off)X[TC].off();TC=n;if(n===1)pickDay();document.body.className='t'+n+(n===1&&dayOn?' dy':'');lf(n);fav(n);try{localStorage.setItem('utsman.theme',n)}catch(e){}
 $$('#tsw button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.n===n));$(MP[n][0]).appendChild($('#calBox'));$(MP[n][1]).appendChild($('#plBox'));$('#gfx').replaceChildren();
-$('#dn1').setAttribute('aria-pressed',n===1&&!!dayOn);if(X[n].on)X[n].on();if(!first){S.loc?(today(),table()):TH.draw()}}
-$('#dn1').onclick=()=>{dayOn=dayOn?0:1;try{localStorage.setItem('utsman.day',dayOn)}catch(e){}document.body.classList.toggle('dy',!!dayOn);$('#dn1').setAttribute('aria-pressed',!!dayOn);L1.fr=getComputedStyle(document.body).getPropertyValue('--fr').trim();gfx()};
+$('#dn1').setAttribute('aria-pressed',n===1&&!!dayOn);if(X[n].on)X[n].on();tcol();if(!first){scrollTo({top:0,left:0,behavior:'instant'});S.loc?(today(),table()):TH.draw()}}
+$('#dn1').onclick=()=>{dayOn=dayOn?0:1;try{localStorage.setItem('utsman.day2',JSON.stringify({v:dayOn,k:dayAuto().k}))}catch(e){}showDay()};
 $('#dLb').onclick=()=>dr6($('#dL'),!$('#dL').classList.contains('o'));$('#dRb').onclick=()=>dr6($('#dR'),!$('#dR').classList.contains('o'));
 $('#app').addEventListener('click',e=>{if(TC===6&&!e.target.closest('button'))dr6(0,0)});
 $('#q7').onclick=()=>pal7(1);$('#x7').onclick=()=>pal7(0);$('#lu').onclick=()=>lid10(1);$('#ld').onclick=()=>lid10(0);
