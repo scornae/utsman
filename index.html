@@ -16,6 +16,11 @@
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="th_TH">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Utsman">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
@@ -403,8 +408,8 @@ $('#sT').onchange=e=>{D.t=nv(e.target.value);lists()};
 $('#ms').onclick=()=>{D.ma='shafii';lists()};$('#mf').onclick=()=>{D.ma='hanafi';lists()};
 function commit(pi,di,ti){setLoc(pi,di,ti);S.madhab=D.ma;save();if(TC===7&&mob7()&&$('#pal').classList.contains('o')){view();palMode(1);jt();return}TH.closePlace();view()}
 $('#ok').onclick=()=>commit(D.p,D.d,D.t);
-function findNearest(lat,lng){let best=null,minD=Infinity;const cosLat=Math.cos(lat*Math.PI/180);DATA.p.forEach((P,pi)=>P[2].forEach((Dd,di)=>Dd[1].forEach((T,ti)=>{const dLat=T[1]-lat,dLng=(T[2]-lng)*cosLat,dist=dLat*dLat+dLng*dLng;if(dist<minD){minD=dist;best=[pi,di,ti]}})));return best}
-const bLoc=$('#bLoc');if(bLoc){bLoc.onclick=()=>{if(!navigator.geolocation){$('#locSt').textContent='อุปกรณ์นี้ไม่รองรับ GPS';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000);return}bLoc.disabled=true;$('#locSt').textContent='กำลังระบุพิกัด...';navigator.geolocation.getCurrentPosition(pos=>{bLoc.disabled=false;$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)';const n=findNearest(pos.coords.latitude,pos.coords.longitude);if(n)commit(...n)},err=>{bLoc.disabled=false;$('#locSt').textContent='ไม่สามารถระบุพิกัดได้ (กรุณาเปิด GPS)';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000)},{enableHighAccuracy:true,timeout:10000,maximumAge:60000})}}
+function findNearest(lat,lng){let best=null,minD=Infinity;const cosLat=Math.cos(lat*Math.PI/180);DATA.p.forEach((P,pi)=>P[2].forEach((Dd,di)=>Dd[1].forEach((T,ti)=>{const dLat=T[1]-lat,dLng=(T[2]-lng)*cosLat,dist=dLat*dLat+dLng*dLng;if(dist<minD){minD=dist;best=[pi,di,ti]}})));if(best)best.km=Math.sqrt(minD)*111.2;return best}
+const bLoc=$('#bLoc');if(bLoc){bLoc.onclick=()=>{if(!navigator.geolocation){$('#locSt').textContent='อุปกรณ์นี้ไม่รองรับ GPS';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000);return}bLoc.disabled=true;$('#locSt').textContent='กำลังระบุพิกัด...';navigator.geolocation.getCurrentPosition(pos=>{bLoc.disabled=false;$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)';const n=findNearest(pos.coords.latitude,pos.coords.longitude);if(n&&n.km>50){$('#locSt').textContent='ตำแหน่งนี้อยู่นอกพื้นที่ที่รองรับ (ประเทศไทย)';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3500);return}if(n)commit(...n)},err=>{bLoc.disabled=false;$('#locSt').textContent='ไม่สามารถระบุพิกัดได้ (กรุณาเปิด GPS)';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000)},{enableHighAccuracy:true,timeout:10000,maximumAge:60000})}}
 let IDX=null;const idx=()=>{if(IDX)return IDX;IDX=[];DATA.p.forEach((P,pi)=>P[2].forEach((Dd,di)=>Dd[1].forEach((T,ti)=>IDX.push([T[0],Dd[0],P[0],pi,di,ti]))));return IDX};
 $('#q').oninput=e=>{const ul=$('#res'),tk=e.target.value.toLowerCase().split(/\s+/).map(t=>t.replace(/^(ตำบล|อำเภอ|จังหวัด|แขวง|เขต|ต\.|อ\.|จ\.)/,'')).filter(Boolean);if(!tk.length){ul.innerHTML='';return}
  const r=[];for(const x of idx()){const s=x[0]+' '+x[1]+' '+x[2];if(tk.every(t=>s.includes(t))){r.push([x[0].startsWith(tk[0])?0:x[1].startsWith(tk[0])?1:2,x]);if(r.length>300)break}}
