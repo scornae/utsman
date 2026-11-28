@@ -31,6 +31,7 @@ svg{fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .ib svg{stroke:currentColor}
 .btn{font:inherit;font-weight:500;color:var(--fg);background:rgba(var(--fr),.08);border:1px solid rgba(var(--fr),.18);border-radius:999px;min-height:48px;padding:0 22px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 .btn.pri{background:var(--em);color:var(--bg);border-color:transparent;font-weight:600}.btn:disabled{opacity:.4;cursor:not-allowed}
+.ins{width:100%;min-height:46px;font-weight:400;background:none;color:rgba(var(--fr),.78)}.ins .ch{display:inline-block;transition:transform .2s}.ins[aria-expanded=true] .ch{transform:rotate(90deg)}.itx{padding:0 4px;display:grid;gap:8px}.itx p{margin:0}.itx svg{vertical-align:-3px}
 :focus-visible{outline:2px solid var(--em);outline-offset:3px}
 .link{display:block;margin:18px auto 0;font:inherit;font-size:15px;color:rgba(var(--fr),.72);background:none;border:0;text-decoration:underline;text-underline-offset:4px;min-height:44px;cursor:pointer}
 .tools{display:flex;gap:10px;margin-bottom:14px}
@@ -279,7 +280,8 @@ td{font-size:14px}td.dc .dn{font-size:20px}.dx{font-size:11px}td:not(.dc)::befor
    <div class="g2"><label>ภาค<select id="sR"></select></label><label>จังหวัด<select id="sP" disabled></select></label><label>อำเภอ<select id="sD" disabled></select></label><label>ตำบล<select id="sT" disabled></select></label></div>
    <div class="co" id="co"></div></details>
   <label>มัซฮับ (ใช้กับเวลาอัสริ)<div class="seg"><button id="ms" aria-pressed="true">ชาฟิอี<small>เงาเท่าวัตถุ</small></button><button id="mf" aria-pressed="false">ฮานาฟี<small>เงาสองเท่า</small></button></div></label>
-  <button class="btn pri" id="ok" disabled>บันทึก</button></div></div>
+  <button class="btn pri" id="ok" disabled>บันทึก</button>
+  <div id="inst" hidden><button type="button" class="btn ins" id="instB" aria-expanded="false" aria-controls="instT"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18.5h2"/></svg><span>ติดตั้งเป็นแอปบนมือถือ</span><span class="ch" aria-hidden="true">›</span></button><div class="note itx" id="instT" hidden></div></div></div></div>
 <dialog id="pk" aria-labelledby="pkt"><div class="dh"><h2 id="pkt">เลือกเดือนและปี</h2><button class="ib" id="xp" aria-label="ปิด">✕</button></div><div class="db"><div class="yr"><button class="ib" id="yp" aria-label="ปีก่อนหน้า"><svg width="22" height="22" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><input id="yi" type="number" inputmode="numeric" min="1900" max="2200" aria-label="ปี ค.ศ."><button class="ib" id="yn" aria-label="ปีถัดไป"><svg width="22" height="22" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button></div><div class="mg" id="mg"></div><button class="btn" id="pt">กลับไปเดือนนี้</button></div></dialog>
 <dialog id="inf" aria-labelledby="it"><div class="dh"><h2 id="it">ที่มาของเวลานี้</h2><button class="ib" id="xi" aria-label="ปิด">✕</button></div><div class="db note" id="ib"></div></dialog>
 
@@ -408,6 +410,17 @@ $('#sT').onchange=e=>{D.t=nv(e.target.value);lists()};
 $('#ms').onclick=()=>{D.ma='shafii';lists()};$('#mf').onclick=()=>{D.ma='hanafi';lists()};
 function commit(pi,di,ti){setLoc(pi,di,ti);S.madhab=D.ma;save();if(TC===7&&mob7()&&$('#pal').classList.contains('o')){view();palMode(1);jt();return}TH.closePlace();view()}
 $('#ok').onclick=()=>commit(D.p,D.d,D.t);
+(()=>{const box=$('#inst'),btn=$('#instB'),tx=$('#instT');if(!box||!btn||!tx)return;
+const ua=navigator.userAgent||'',ios=/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1),and=/Android/i.test(ua);
+if(!ios&&!and)return;
+let sa=false;try{sa=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true}catch(e){}
+if(sa)return;
+const inApp=/\bLine\/|FBAN|FBAV|FB_IAB|Instagram|Messenger|MicroMessenger|; wv\)/i.test(ua);
+const share='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="ปุ่มแชร์"><path d="M12 15V3m0 0L8 7m4-4 4 4"/><path d="M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2"/></svg>';
+let h='';if(inApp)h+='<p>เปิดลิงก์นี้ด้วย '+(ios?'Safari':'Chrome')+' ก่อน</p>';
+h+=ios?'<p>แตะปุ่มแชร์ '+share+' แล้วเลือก “เพิ่มลงในหน้าจอโฮม”</p>':'<p>แตะเมนู ⋮ ของเบราว์เซอร์ แล้วเลือก “ติดตั้งแอป”</p>';
+tx.innerHTML=h;box.hidden=false;
+btn.onclick=()=>{const o=tx.hidden;tx.hidden=!o;btn.setAttribute('aria-expanded',o?'true':'false')}})();
 function findNearest(lat,lng){let best=null,minD=Infinity;const cosLat=Math.cos(lat*Math.PI/180);DATA.p.forEach((P,pi)=>P[2].forEach((Dd,di)=>Dd[1].forEach((T,ti)=>{const dLat=T[1]-lat,dLng=(T[2]-lng)*cosLat,dist=dLat*dLat+dLng*dLng;if(dist<minD){minD=dist;best=[pi,di,ti]}})));if(best)best.km=Math.sqrt(minD)*111.2;return best}
 const bLoc=$('#bLoc');if(bLoc){bLoc.onclick=()=>{if(!navigator.geolocation){$('#locSt').textContent='อุปกรณ์นี้ไม่รองรับ GPS';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000);return}bLoc.disabled=true;$('#locSt').textContent='กำลังระบุพิกัด...';navigator.geolocation.getCurrentPosition(pos=>{bLoc.disabled=false;$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)';const n=findNearest(pos.coords.latitude,pos.coords.longitude);if(n&&n.km>50){$('#locSt').textContent='ตำแหน่งนี้อยู่นอกพื้นที่ที่รองรับ (ประเทศไทย)';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3500);return}if(n)commit(...n)},err=>{bLoc.disabled=false;$('#locSt').textContent='ไม่สามารถระบุพิกัดได้ (กรุณาเปิด GPS)';setTimeout(()=>{$('#locSt').textContent='ใช้ตำแหน่งปัจจุบัน (GPS)'},3000)},{enableHighAccuracy:true,timeout:10000,maximumAge:60000})}}
 let IDX=null;const idx=()=>{if(IDX)return IDX;IDX=[];DATA.p.forEach((P,pi)=>P[2].forEach((Dd,di)=>Dd[1].forEach((T,ti)=>IDX.push([T[0],Dd[0],P[0],pi,di,ti]))));return IDX};
